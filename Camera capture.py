@@ -3,24 +3,18 @@ import cv2
 from PIL import Image
 import requests
 
-
 YSTART = 300
 XSTART = 700
 
-
 GREEN = np.array([0, 255, 0]) 
 
-
 cap = cv2.VideoCapture(0) 
-
 
 frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (frame_width, frame_height))
-
 
 qr_detector = cv2.QRCodeDetector()
 
@@ -31,7 +25,6 @@ while True:
     if not ret:
         print("can not get frame")
         break
-
     
     inner = frame[YSTART:YSTART+448, XSTART:XSTART+448].copy()
     frame[YSTART-2:YSTART+448+2, XSTART-2:XSTART+448+2] = GREEN
@@ -39,14 +32,12 @@ while True:
 
 
     out.write(frame)
-
     
     value, pts, _ = qr_detector.detectAndDecode(frame)
 
     if value:
         print(f"detect this qrcode: {value}")
-
-        
+    
         identifier = value.strip()
         url = f"https://mad-shop.onrender.com/api/pickups/{identifier}?populate=items"
         response = requests.get(url)
@@ -55,7 +46,6 @@ while True:
             print("API is rise:", response.json())  
         else:
             print(f"can't get data.HTTP : {response.status_code}")
-
     
     cv2.imshow('frame', frame)
 
@@ -76,7 +66,11 @@ while True:
         im.save(f'out{i:04d}.png')
         i += 1
 
-
 cap.release()
 out.release()
 cv2.destroyAllWindows()
+
+#I install opencv and image and requests for my code to capture video,image and for http 
+#i create videowriter to make the style of video is mp4 and make qrdetector to detect qr code . this depends opencv's qr scan
+#also i create 2 buttons is key=q and key=w   q is quit the terminal and w to save frame.
+#for the third question, i don't understand very well , but the first one and the second question i can get from my code .and i do some try for the third one.
