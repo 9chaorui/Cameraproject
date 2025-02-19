@@ -52,9 +52,9 @@ while True:
         response = requests.get(url)
 
         if response.status_code == 200:
-            print("API is rise:", response.json())  # Print API response JSON data
+            print("API is rise:", response.json())  
         else:
-            print(f"can't get data。HTTP 状态码: {response.status_code}")
+            print(f"can't get data.HTTP : {response.status_code}")
 
     
     cv2.imshow('frame', frame)
