@@ -56,14 +56,14 @@ while True:
         else:
             print(f"can't get data。HTTP 状态码: {response.status_code}")
 
-    # display frame
+    
     cv2.imshow('frame', frame)
 
     key = cv2.waitKey(1) & 0xFF  
     if key == ord('q'):
         break
     elif key == ord('w'):
-        # change bgr to rgb   bgr is also uesd in opencv
+        
         a = inner[:,:,0].copy()
         b = inner[:,:,1].copy()
         c = inner[:,:,2].copy()
